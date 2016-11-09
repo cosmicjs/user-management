@@ -1,5 +1,5 @@
 #User Management
-This is an example of a user management app built using Node.js and [Cosmic JS](https://cosmicjs.com).  User information is stored in the [Cosmic JS CMS API](https://cosmicjs.com).  Sign up for Cosmic JS to add, edit and remove user data in your Cosmic JS dashboard.
+This is an example of a user management app built using Node.js and [Cosmic JS](https://cosmicjs.com).  User information is stored in the [Cosmic JS CMS API](https://cosmicjs.com) for easy adding, editing and extending in your Cosmic JS dashboard.
 
 ##Demo
 [Click here to view a demo](http://user-management.cosmicapp.co)
