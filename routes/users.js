@@ -1,0 +1,89 @@
+// users.js
+import Cosmic from 'cosmicjs'
+import async from 'async'
+import _ from 'lodash'
+import md5 from 'md5'
+module.exports = (app, config, partials) => {
+  app.get('/users', (req, res) => {
+    if(!req.session.user)
+      return res.redirect('/?message=unauthorized')
+    res.locals.user = req.session.user
+    async.series([
+      callback => {
+        Cosmic.getObjectType({ bucket: { slug: config.COSMIC_BUCKET } }, 'users', (err, response) => {
+          res.locals.users = response.objects.all
+          callback()
+        })
+      },
+      callback => {
+        Cosmic.getObjects({ bucket: { slug: config.COSMIC_BUCKET } }, (err, response) => {
+          res.locals.cosmic = response
+          return res.render('users.html', {
+            partials
+          })
+        })
+      }
+    ])
+  })
+  // Submit form
+  app.post('/users', (req, res) => {
+    const data = req.body
+    async.series([
+      callback => {
+        let user_found = false
+        Cosmic.getObjectType({ bucket: { slug: config.COSMIC_BUCKET } }, 'users', (err, response) => {
+          _.forEach(response.objects.all, user => {
+            if (_.find(user.metafields, { key: 'email', value: data.email.trim() }))
+              user_found = true
+          })
+          if (!user_found)
+            return callback()
+          // User found
+          return res.status(409).json({ status: 'error', message: 'Email already in use' })
+        })
+      },
+      callback => {
+        // Send to Cosmic
+        const object = {
+          type_slug: 'users',
+          title: data.full_name,
+          metafields: [
+            {
+              title: 'First name',
+              key: 'first_name',
+              type: 'text',
+              value: data.first_name
+            },
+            {
+              title: 'Last name',
+              key: 'last_name',
+              type: 'text',
+              value: data.last_name
+            },
+            {
+              title: 'Password',
+              key: 'password',
+              type: 'text',
+              value: md5(data.password)
+            },
+            {
+              title: 'Email',
+              key: 'email',
+              type: 'text',
+              value: data.email.trim().toLowerCase()
+            }
+          ]
+        }
+        if (config.COSMIC_WRITE_KEY)
+          object.write_key = config.COSMIC_WRITE_KEY
+        Cosmic.addObject({ bucket: { slug: config.COSMIC_BUCKET } }, object, (err, response) => {
+          if (err)
+            res.status(500).json({ status: 'error', data: response })
+          else
+            res.json({ status: 'success', data: response })
+          res.end()
+        })
+      }
+    ])
+  })
+}

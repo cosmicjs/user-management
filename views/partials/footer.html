@@ -1,0 +1,28 @@
+<div class="clearfix"></div>
+<footer id="footer" class="footer invisible">
+  <div class="center-block mt-40 pb-60 w-260">
+    <div class="text-center mb-40">
+      <a class="btn btn-default" href="https://github.com/cosmicjs/user-management" target="_blank">
+        <i class="fa fa-github font-20" style="position: relative; top: 2px;"></i>
+        &nbsp;&nbsp;View Code on GitHub
+      </a>
+    </div>
+    <div>
+      <a href="https://cosmicjs.com" target="_blank">
+        <img class="pull-left mr-15 relative" src="https://cosmicjs.com/images/logo.svg" width="28" height="28">
+        <span style="color: #666">Proudly powered by Cosmic JS</span>
+      </a>
+    </div>
+  </div>
+  {{^ is_dev }}
+    <script src="/js/combined.min.js"></script>
+  {{/ is_dev }}
+  {{# is_dev }}
+    <script src="/js/0-jquery.min.js"></script>
+    <script src="/js/1-bootstrap.min.js"></script>
+    <script src="/js/2-main.js"></script>
+    <script src="/js/md5.min.js"></script>
+  {{/ is_dev }}
+</footer>
+</body>
+</html>

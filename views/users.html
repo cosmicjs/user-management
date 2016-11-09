@@ -1,0 +1,31 @@
+{{> header }}
+  <main id="main">
+    <div class="container mb-40">
+      <div class="pull-right">
+        <div>Hello, {{ user.first_name }}</div>
+        <div>
+          <a href="/logout" class="btn btn-default">Logout</a>
+        </div>
+      </div>
+      <h1>Users</h1>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Created</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{# users }}
+            <tr>
+              <td>{{ metafield.first_name.value }} {{ metafield.last_name.value }}</td>
+              <td>**********</td>
+              <td>{{ created }}</td>
+            </tr>
+          {{/ users }}
+        </tbody>
+      </table>
+    </div>
+  </main>
+{{> footer }}
