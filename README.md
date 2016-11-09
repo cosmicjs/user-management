@@ -4,8 +4,8 @@ This is an example of a user management app built using Node.js and [Cosmic JS](
 [Click here to view a demo](http://user-management.cosmicapp.co)
 
 ##Features
-- Fully manage user data using Cosmic JS
-- Use Metafields to manage and extend user data
+- Fully manage user data using Cosmic JS.  Easily add, remove and extend user data.
+- Form validation, server validation
 - Gravatar support
 
 ##Get started
