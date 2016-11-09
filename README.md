@@ -4,7 +4,7 @@ This is an example of a user management app built using Node.js and [Cosmic JS](
 Current functionality includes:
 - Sign up
 - Log in
-- View the users page (after login)
+- View a list of users (after login)
 
 ##Demo
 [Click here to view a demo](http://user-management.cosmicapp.co)
