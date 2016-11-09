@@ -5,8 +5,8 @@ This is an example of a user management app built using Node.js and [Cosmic JS](
 
 ##Features
 - Fully manage user data using Cosmic JS.  Easily add, remove and extend user data.
-- Form validation, server validation
-- Gravatar support
+- Form validation, server validation.
+- Gravatar support.
 
 ##Get started
 ```
