@@ -3,6 +3,8 @@ This is an example of a user management app built using Node.js and [Cosmic JS](
 ##Demo
 [Click here to view a demo](http://user-management.cosmicapp.co)
 
+![Image of User Management App](https://cosmicjs.imgix.net/3a5df620-a636-11e6-8ae9-e32496a689d4-login.png?w=360)
+
 ##Features
 - Fully manage user data using Cosmic JS.  Easily add, remove and extend user data.
 - Form validation, server validation.
