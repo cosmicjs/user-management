@@ -10,7 +10,7 @@ module.exports = (app, config, partials) => {
     res.locals.user = req.session.user
     async.series([
       callback => {
-        Cosmic.getObjectType({ bucket: { slug: config.COSMIC_BUCKET } }, 'users', (err, response) => {
+        Cosmic.getObjectType({ bucket: { slug: config.COSMIC_BUCKET } }, { type_slug: 'users' }, (err, response) => {
           res.locals.users = response.objects.all
           callback()
         })
@@ -31,7 +31,7 @@ module.exports = (app, config, partials) => {
     async.series([
       callback => {
         let user_found = false
-        Cosmic.getObjectType({ bucket: { slug: config.COSMIC_BUCKET } }, 'users', (err, response) => {
+        Cosmic.getObjectType({ bucket: { slug: config.COSMIC_BUCKET } }, { type_slug: 'users' }, (err, response) => {
           _.forEach(response.objects.all, user => {
             if (_.find(user.metafields, { key: 'email', value: data.email.trim() }))
               user_found = true
