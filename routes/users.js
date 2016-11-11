@@ -2,7 +2,6 @@
 import Cosmic from 'cosmicjs'
 import async from 'async'
 import _ from 'lodash'
-import md5 from 'md5'
 import bcrypt from 'bcrypt'
 const saltRounds = 10
 module.exports = (app, config, partials) => {
