@@ -3,6 +3,8 @@ import Cosmic from 'cosmicjs'
 import async from 'async'
 import _ from 'lodash'
 import md5 from 'md5'
+import bcrypt from 'bcrypt'
+const saltRounds = 10
 module.exports = (app, config, partials) => {
   app.get('/users', (req, res) => {
     if(!req.session.user)
@@ -43,6 +45,12 @@ module.exports = (app, config, partials) => {
         })
       },
       callback => {
+        bcrypt.hash(data.password, saltRounds, function(err, hash) {
+          res.locals.hash = hash
+          callback()
+        })
+      },
+      callback => {
         // Send to Cosmic
         const object = {
           type_slug: 'users',
@@ -64,7 +72,7 @@ module.exports = (app, config, partials) => {
               title: 'Password',
               key: 'password',
               type: 'text',
-              value: md5(data.password)
+              value: res.locals.hash
             },
             {
               title: 'Email',
