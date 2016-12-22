@@ -7,7 +7,7 @@ Current functionality includes:
 - View a list of users (after login)
 
 ##Demo
-[Click here to view a demo](http://user-management.cosmicapp.co)
+[Click here to view a demo](https://cosmicjs.com/apps/user-management)
 
 ![Image of User Management App](https://cosmicjs.com/uploads/d0934110-a698-11e6-8ae9-e32496a689d4-user-management.gif)
 
