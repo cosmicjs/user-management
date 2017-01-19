@@ -11,13 +11,13 @@ module.exports = (app, config, partials) => {
     res.locals.user = req.session.user
     async.series([
       callback => {
-        Cosmic.getObjectType({ bucket: { slug: config.COSMIC_BUCKET } }, { type_slug: 'users' }, (err, response) => {
+        Cosmic.getObjectType({ bucket: { slug: config.COSMIC_BUCKET, read_key: config.COSMIC_READ_KEY } }, { type_slug: 'users' }, (err, response) => {
           res.locals.users = response.objects.all
           callback()
         })
       },
       callback => {
-        Cosmic.getObjects({ bucket: { slug: config.COSMIC_BUCKET } }, (err, response) => {
+        Cosmic.getObjects({ bucket: { slug: config.COSMIC_BUCKET, read_key: config.COSMIC_READ_KEY } }, (err, response) => {
           res.locals.cosmic = response
           return res.render('users.html', {
             partials
@@ -32,7 +32,7 @@ module.exports = (app, config, partials) => {
     async.series([
       callback => {
         let user_found = false
-        Cosmic.getObjectType({ bucket: { slug: config.COSMIC_BUCKET } }, { type_slug: 'users' }, (err, response) => {
+        Cosmic.getObjectType({ bucket: { slug: config.COSMIC_BUCKET, read_key: config.COSMIC_READ_KEY } }, { type_slug: 'users' }, (err, response) => {
           _.forEach(response.objects.all, user => {
             if (_.find(user.metafields, { key: 'email', value: data.email.trim() }))
               user_found = true
@@ -83,7 +83,7 @@ module.exports = (app, config, partials) => {
         }
         if (config.COSMIC_WRITE_KEY)
           object.write_key = config.COSMIC_WRITE_KEY
-        Cosmic.addObject({ bucket: { slug: config.COSMIC_BUCKET } }, object, (err, response) => {
+        Cosmic.addObject({ bucket: { slug: config.COSMIC_BUCKET, write_key: config.COSMIC_WRITE_KEY } }, object, (err, response) => {
           if (err)
             res.status(500).json({ status: 'error', data: response })
           else

@@ -8,7 +8,7 @@ module.exports = (app, config, partials) => {
   // Submit form
   app.post('/auth', (req, res) => {
     const data = req.body
-    Cosmic.getObjectType({ bucket: { slug: config.COSMIC_BUCKET } }, { type_slug: 'users' }, (err, response) => {
+    Cosmic.getObjectType({ bucket: { slug: config.COSMIC_BUCKET, read_key: config.COSMIC_READ_KEY } }, { type_slug: 'users' }, (err, response) => {
       if (err)
         res.status(500).json({ status: 'error', data: response })
       else {
